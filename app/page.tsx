@@ -36,6 +36,7 @@ import {
 import { FileUp, Save, Trash, RotateCcw } from 'lucide-react';
 import Navbar from '@/components/ui/NavBar';
 import { Chart as ChartJS } from 'chart.js';
+import NavBar from '@/components/ui/NavBar';
 
 ChartJS.register(
   CategoryScale,
@@ -143,9 +144,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen">
-      <nav className="bg-gray-800 text-white p-4">
-        <h1 className="text-xl font-bold">Dashboard</h1>
-      </nav>
+<NavBar/>
       <ResizablePanelGroup direction="vertical" className="flex-grow">
         <ResizablePanel defaultSize={75}>
           <ResizablePanelGroup direction="horizontal">
