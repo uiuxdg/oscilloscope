@@ -105,8 +105,9 @@ export default function Home() {
   const updateChartData = (newData: number | Partial<typeof chartData.datasets[0]>) => {
     setChartData((prevData) => {
       if (typeof newData === 'number') {
-        const updatedData = [...prevData.datasets[0].data, newData].slice(-100);
-        const updatedLabels = Array.from({ length: updatedData.length }, (_, i) => `Label ${i + 1}`);
+        const currentTime = new Date().toLocaleTimeString();
+        const updatedData = [...(prevData.datasets[0].data || []), newData].slice(-100);
+        const updatedLabels = [...(prevData.labels || []), currentTime].slice(-100);
         return {
           ...prevData,
           labels: updatedLabels,
