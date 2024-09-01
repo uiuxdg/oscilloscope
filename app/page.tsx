@@ -32,10 +32,9 @@ import {
   Tooltip,
   Legend,
   Filler,
-  ScaleOptions,
 } from 'chart.js';
 import { FileUp, Save, Trash, RotateCcw } from 'lucide-react';
-import NavBar from '@/components/ui/NavBar';
+import Navbar from '@/components/ui/NavBar';
 import { Chart as ChartJS } from 'chart.js';
 
 ChartJS.register(
@@ -51,11 +50,11 @@ ChartJS.register(
 
 export default function Home() {
   const [chartData, setChartData] = useState<ChartData<'line'>>({
-    labels: ['label1', 'label2', 'label3', 'label4', 'label5', 'label6', 'label7'],
+    labels: Array.from({ length: 100 }, (_, i) => `Label ${i + 1}`),
     datasets: [
       {
-        label: 'Sales',
-        data: [65, 59, 80, 81, 56, 55, 40],
+        label: 'Real-time Data',
+        data: Array.from({ length: 100 }, () => Math.floor(Math.random() * 100)),
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
         tension: 0.1,
@@ -72,7 +71,7 @@ export default function Home() {
       },
       title: {
         display: true,
-        text: 'Oscilloscope Data',
+        text: 'Real-time Data',
       },
     },
     scales: {
@@ -103,29 +102,49 @@ export default function Home() {
     ]);
   };
 
-  const updateChartData = (newData: any) => {
-    setChartData((prevData) => ({
-      ...prevData,
-      datasets: [{ ...prevData.datasets[0], ...newData }],
-    }));
+  const updateChartData = (newData: number | Partial<typeof chartData.datasets[0]>) => {
+    setChartData((prevData) => {
+      if (typeof newData === 'number') {
+        const updatedData = [...prevData.datasets[0].data, newData].slice(-100);
+        const updatedLabels = Array.from({ length: updatedData.length }, (_, i) => `Label ${i + 1}`);
+        return {
+          ...prevData,
+          labels: updatedLabels,
+          datasets: [{ ...prevData.datasets[0], data: updatedData }],
+        };
+      } else {
+        return {
+          ...prevData,
+          datasets: [{ ...prevData.datasets[0], ...newData }],
+        };
+      }
+    });
   };
 
   useEffect(() => {
-    // This effect is to demonstrate dynamic data updates
     const interval = setInterval(() => {
-      const newData = chartData.datasets[0].data.map(() =>
-        Math.floor(Math.random() * 100)
-      );
-      updateChartData({ data: newData });
-      addLog('Data updated automatically');
-    }, 5000);
+      const newData = Math.floor(Math.random() * 100);
+      updateChartData(newData);
+      addLog('Data updated in real-time');
+    }, 100);
 
     return () => clearInterval(interval);
-  }, [chartData]);
+  }, []);
+
+  const [userInput, setUserInput] = useState('');
+
+  const handleUserInput = () => {
+    if (userInput.trim()) {
+      addLog(userInput);
+      setUserInput('');
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen">
-      <NavBar />
+      <nav className="bg-gray-800 text-white p-4">
+        <h1 className="text-xl font-bold">Dashboard</h1>
+      </nav>
       <ResizablePanelGroup direction="vertical" className="flex-grow">
         <ResizablePanel defaultSize={75}>
           <ResizablePanelGroup direction="horizontal">
@@ -160,6 +179,17 @@ export default function Home() {
                     </div>
                   ))}
                 </ScrollArea>
+                <div className="flex space-x-2">
+                  <Input
+                    value={userInput}
+                    onChange={(e) => setUserInput(e.target.value)}
+                    placeholder="Enter log message"
+                    className="flex-grow"
+                  />
+                  <Button onClick={handleUserInput} className="w-full">
+                    Add Log
+                  </Button>
+                </div>
               </div>
             </ResizablePanel>
           </ResizablePanelGroup>
@@ -193,7 +223,7 @@ export default function Home() {
                     <Label htmlFor="chart-title">Chart Title</Label>
                     <Input
                       id="chart-title"
-                      defaultValue="Sales Data"
+                      defaultValue="Real-time Data"
                       onChange={(e) => {
                         setChartOptions((prev) => ({
                           ...prev,
@@ -268,25 +298,10 @@ export default function Home() {
                       min={1}
                       max={12}
                       step={1}
-                      defaultValue={[7]}
+                      defaultValue={[10]}
                       onValueChange={(value) => {
-                        const newLabels = [
-                          'label1',
-                          'label2',
-                          'label3',
-                          'label4',
-                          'label5',
-                          'label6',
-                          'label7',
-                          'label8',
-                          'label9',
-                          'label10',
-                          'label11',
-                          'label12',
-                        ].slice(0, value[0]);
-                        const newData = Array(value[0])
-                          .fill(0)
-                          .map(() => Math.floor(Math.random() * 100));
+                        const newLabels = Array.from({ length: value[0] }, (_, i) => `Label ${i + 1}`);
+                        const newData = Array.from({ length: value[0] }, () => Math.floor(Math.random() * 100));
                         setChartData((prev) => ({
                           ...prev,
                           labels: newLabels,
