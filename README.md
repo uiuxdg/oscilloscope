@@ -40,7 +40,7 @@ Before you begin, ensure you have met the following requirements:
 
 1. **Clone the repository**:
    \```bash
-   git clone https://github.com/yourusername/oscilloscope.git
+   git clone https://github.com/uiuxdg/oscilloscope.git
    cd oscilloscope
    \```
 
@@ -66,7 +66,7 @@ The app will be available at `http://localhost:3000`.
 
 ## Deployment
 
-This project is automatically deployed on Vercel upon pushing changes to the `main` branch. You can view the live site at `[your-vercel-url]`.
+This project is automatically deployed on Vercel upon pushing changes to the `main` branch. You can view the live site at `[oscilloscope-psi.vercel.app]`.
 
 To manually deploy:
 
