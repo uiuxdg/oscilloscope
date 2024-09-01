@@ -1,4 +1,3 @@
-\```markdown
 # Oscilloscope App
 
 ## Overview
@@ -32,35 +31,35 @@ Before you begin, ensure you have met the following requirements:
 
 - **Node.js**: Version 14.x or later.
 - **pnpm**: Preferred package manager. Install it via npm:
-  \```bash
+  ```bash
   npm install -g pnpm
-  \```
+  ```
 
 ### Installation
 
 1. **Clone the repository**:
-   \```bash
+   ```bash
    git clone https://github.com/uiuxdg/oscilloscope.git
    cd oscilloscope
-   \```
+   ```
 
 2. **Install dependencies**:
-   \```bash
+   ```bash
    pnpm install
-   \```
+   ```
 
 3. **Set up Tailwind CSS** (if not already set up):
-   \```bash
+   ```bash
    npx tailwindcss init -p
-   \```
+   ```
 
 ### Running the App
 
 To start the development server, run:
 
-\```bash
+```bash
 pnpm dev
-\```
+```
 
 The app will be available at `http://localhost:3000`.
 
@@ -77,7 +76,7 @@ To manually deploy:
 
 Here’s an overview of the project structure:
 
-\```
+```
 oscilloscope/
 ├── app/
 │   ├── layout.tsx           # Application layout
@@ -91,7 +90,7 @@ oscilloscope/
 ├── package.json             # Project metadata and scripts
 ├── README.md                # Project documentation
 └── tsconfig.json            # TypeScript configuration
-\```
+```
 
 ## Contributing
 
@@ -99,21 +98,20 @@ We welcome contributions! To get started:
 
 1. **Fork the repository**.
 2. **Create a new branch**: 
-   \```bash
+   ```bash
    git checkout -b feature/your-feature-name
-   \```
+   ```
 3. **Make your changes**.
 4. **Commit your changes**:
-   \```bash
+   ```bash
    git commit -m "Add your commit message here"
-   \```
+   ```
 5. **Push to your branch**:
-   \```bash
+   ```bash
    git push origin feature/your-feature-name
-   \```
+   ```
 6. **Open a Pull Request** on GitHub.
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-\```
